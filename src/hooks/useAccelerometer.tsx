@@ -9,47 +9,31 @@ type TAccelerometerData = {
 
 export const useAccelerometer = (onDataChange: (data: TAccelerometerData) => void) => {
   const [accData, setAccData] = useState<TAccelerometerData>({ x: 0, y: 0 });
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [debugData, setDebugData] = useState<string>("");
+  const isEnabled = false;
 
-  const handleOrientation = (event: DeviceOrientationEvent) => {
-    const data = {
-      x: roundNumber(event.beta || 0), // In degree in the range [-180,180]
-      y: roundNumber(event.gamma || 0), // In degree in the range [-90,90]
-    };
-
-    console.log(data);
-
-    setDebugData(JSON.stringify(data, null, 2));
-    setAccData(data);
-
-    onDataChange(data);
-  };
-
-  const askForPermission = async () => {
-    // @ts-ignore
-    const orientationPermission = DeviceOrientationEvent.requestPermission as () => Promise<PermissionState>;
-    if (typeof orientationPermission !== "function") {
-      return;
-    }
-
-    try {
-      const permissionState = await orientationPermission();
-      if (permissionState !== "granted") {
-        setDebugData("Permission denied for Device Orientation");
-        setIsEnabled(false);
-      }
-
-      window.addEventListener("deviceorientation", handleOrientation);
-      setIsEnabled(true);
-    } catch (error) {
-      setDebugData(`Error requesting permission: ${error}`);
-      setIsEnabled(false);
-    }
+  const normalizeOrientation = (value: number | null) => {
+    const deg90 = (value || 0) % 90;
+    return roundNumber(deg90);
   };
 
   useEffect(() => {
-    askForPermission();
+    if (!isEnabled) {
+      return;
+    }
+
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const x = normalizeOrientation(event.gamma) * -1;
+      const y = normalizeOrientation(event.beta);
+
+      const data = { x, y };
+
+      setDebugData(JSON.stringify(data, null, 2));
+      onDataChange(data);
+      setAccData(data);
+    };
+
+    window.addEventListener("deviceorientation", handleOrientation);
 
     return () => {
       window.removeEventListener("deviceorientation", handleOrientation);
