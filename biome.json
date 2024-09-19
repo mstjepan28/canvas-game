@@ -1,0 +1,66 @@
+{
+  "organizeImports": {
+    "enabled": false,
+    "ignore": [ "node_modules", "package.json" ]
+  },
+  "javascript": {
+    "globals": [ "React", "JSX" ]
+  },
+  "formatter": {
+    "ignore": [ "node_modules", "package.json" ],
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "linter": {
+    "ignore": [ "node_modules", "package.json" ],
+    "rules": {
+      "a11y": {
+        "noNoninteractiveTabindex": { "level": "off"},
+        "useKeyWithClickEvents": { "level": "off"},
+        "noSvgWithoutTitle": { "level": "off"},
+        "useHeadingContent": { "level": "off"},
+        "useAltText": { "level": "off"}
+      },
+      "complexity": {
+        "noExtraBooleanCast": { "level": "error"},
+        "useArrowFunction": { "level": "error"},
+        "noBannedTypes": { "level": "error"},
+        "useFlatMap": { "level": "error"},
+        "noUselessConstructor": { "level": "off"},
+        "noUselessFragments": { "level": "off"},
+        "useOptionalChain": { "level": "off"},
+        "noForEach": { "level": "off"}
+      },
+      "correctness": {
+        "noUndeclaredVariables": { "level": "error"},
+        "useHookAtTopLevel": { "level": "error"},
+        "noUnusedVariables": { "level": "error"},
+        "noUnusedImports": { "level": "error"},
+        "noUnreachable": { "level": "error"},
+        "useExhaustiveDependencies": { "level": "off"}
+      },
+      "performance": {
+        "noAccumulatingSpread": { "level": "error"},
+        "noDelete": { "level": "error"}
+      },
+      "security": {},
+      "style": {
+        "useExponentiationOperator": { "level": "off"},
+        "noUnusedTemplateLiteral": { "level": "off"},
+        "useSelfClosingElements": { "level": "off"},
+        "noNonNullAssertion": { "level": "off"},
+        "noParameterAssign": { "level": "off"},
+        "noUselessElse": { "level": "off"},
+        "useTemplate": { "level": "off"}
+      },
+      "suspicious": {
+        "noConfusingVoidType": { "level": "off"},
+        "noArrayIndexKey": { "level": "off"},
+        "noDoubleEquals": { "level": "off"},
+        "noExplicitAny": { "level": "off"}
+      }
+    }
+  }
+}
